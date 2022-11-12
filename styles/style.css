@@ -16,19 +16,39 @@ main header {
   grid-column: 1 / span 1;
   background-color: #2d2a32;
   display: grid;
-  justify-content: center;
+  grid-template-columns: 80% 1fr;
+  justify-items: center;
   align-items: center;
+  height: 10em;
+  margin-bottom: 40em;
 }
 
 main header #title {
+  margin-left: 4em;
+  grid-column: 1 / span 1;
   color: #ddd92a;
-  font-size: 4em;
+  font-size: 3.5em;
 }
 
 main header #home-button {
-
+  grid-column: 2 / span 2;
+  grid-row: 1 / span 1;
+  padding: 1em 2em 1em 2em;
+  border-radius: 1em;
+  background: linear-gradient(to left, #EEEFA8 50%, #EAE151 50%) right;
+  background-size: 200% 100%;
+  font-weight: bold;
+  font-size: 1em;
 }
-
+main header #home-button:hover {
+  transition:all 0.5s linear;
+  background-position: left;
+  cursor: pointer;
+}
+main header #home-button a {
+  text-decoration: none;
+  color: black;
+}
 
 main .cheatsheets {
   grid-row: 2 / span 2;
@@ -37,6 +57,12 @@ main .cheatsheets {
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(5, 1fr);
   padding: 3em 10em 0 10em;
+  height: 5em;
+
+  /* this prevents highlighting of text */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 main .cheatsheets .cheatsheet {
@@ -49,14 +75,14 @@ main .cheatsheets .cheatsheet {
   justify-items: center;
   align-items: center;
   transition: transform 0.2s;
-  background: linear-gradient(to top, #EEEFA8 50%, #EAE151 50%) bottom;
-  background-size: 100% 200%;
+  background: #EEEFA8;
 }
 
 main .cheatsheets .cheatsheet:hover {
   transform: scale(1.1);
-  transition:all 1s linear;
-  background-position: top;
+  background: #EAE151;
+  transition:all 0.2s linear;
+  cursor: pointer;
 }
 
 main .cheatsheets .cheatsheet h3 {
@@ -65,4 +91,29 @@ main .cheatsheets .cheatsheet h3 {
 }
 main .cheatsheets .cheatsheet img {
   grid-column: 2 / span 2;
+}
+
+/* cheatsheetLists */
+main .cheatsheets .cheatsheetItem {
+  display: grid;
+  grid-template-columns: 80% 1fr;
+  /* background-color: #EEEFA8; */
+  border: 2px black solid;
+  margin: 1.5em 10em 1.5em 10em;
+  border-radius: 1em;
+  justify-items: center;
+  align-items: center;
+  background-color: aquamarine;
+  transition: all 0.2s;
+  max-height: 10em;
+}
+main .cheatsheets .cheatsheetItem:hover {
+  transform: scale(1.05);
+  background-color: aqua;
+  cursor: pointer;
+}
+
+#adobe-dc-view {
+  height: 50em;
+  border: 1em solid black;
 }
