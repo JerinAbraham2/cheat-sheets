@@ -11,9 +11,9 @@ function callAdobeApi(PDFObject) {
     setTimeout(function () {
       changeDoc();
     }, 200);
-
     return;
   }
+  
   var adobeDCView = new AdobeDC.View({ clientId: "56bd9cfc05f9496bb75307708a493ca3", divId: "adobe-dc-view" });
   adobeDCView.previewFile(
     {
@@ -26,10 +26,6 @@ function callAdobeApi(PDFObject) {
         fileName: PDFObject.fileName,
       },
     },
-    {
-      embedMode: "FULL_WINDOW",
-      defaultViewMode: "FIT_WIDTH",
-    }
   );
 }
 
@@ -50,6 +46,7 @@ const PDFCollection = [
   new PDF("Simple JavaScript Cheatsheet", "iloveCoding", "javascript", "cheatsheets/JavaScript/js-cheatsheet-2.pdf", "js-cheatsheet-2.pdf"),
   new PDF("Beginner's Essential", "WebsiteSetup", "javascript", "cheatsheets/JavaScript/JS_Cheat_1667421241.pdf", "JS_Cheat_1667421241.pdf"),
   new PDF("Complete JavaScript CheatSheet", "PAPA REACT", "javascript", "cheatsheets/JavaScript/JS__1667799823.pdf", "JS__1667799823.pdf"),
+  new PDF("CSS Cheatsheet", "iloveCoding", "css", "cheatsheets/css-cheatsheet.pdf", "css-cheatsheet.pdf"),
 ];
 
 console.log(PDFCollection[0].title);
@@ -123,6 +120,9 @@ const openSheet = (clickedId) => {
     openSheetClicked = true;
   } else {
     document.querySelectorAll(".cheatsheetItem").forEach((el) => {
+      el.remove();
+    });
+    document.querySelectorAll("#adobe-dc-view").forEach((el) => {
       el.remove();
     });
     openSheetClicked = false;
