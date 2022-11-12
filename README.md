@@ -16,3 +16,6 @@ This is a website I use to store all the cheatsheets I have found on the interne
 - JavaScript
 - HTML
 - CSS
+
+#### Other
+I also practiced using grids in this website
