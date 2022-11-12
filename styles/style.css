@@ -114,6 +114,9 @@ main .cheatsheets .cheatsheetItem:hover {
 }
 
 #adobe-dc-view {
-  height: 50em;
+  height: 80em;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   border: 1em solid black;
 }
