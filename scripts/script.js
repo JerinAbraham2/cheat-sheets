@@ -14,7 +14,7 @@ function callAdobeApi(PDFObject) {
 
     return;
   }
-  var adobeDCView = new AdobeDC.View({ clientId: "xxxx", divId: "adobe-dc-view" });
+  var adobeDCView = new AdobeDC.View({ clientId: "56bd9cfc05f9496bb75307708a493ca3", divId: "adobe-dc-view" });
   adobeDCView.previewFile(
     {
       content: {
