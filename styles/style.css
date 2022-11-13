@@ -59,6 +59,7 @@ main .cheatsheets {
   padding: 3em 10em 0 10em;
   height: 5em;
 
+
   /* this prevents highlighting of text */
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -115,8 +116,8 @@ main .cheatsheets .cheatsheetItem:hover {
 
 #adobe-dc-view {
   height: 80em;
-  width: 100%;
-  margin: 0;
+  width: 80%;
+  margin: 0 auto 0 auto;
   padding: 0;
-  border: 1em solid black;
+  border: 0.5em solid black;
 }
