@@ -95,7 +95,7 @@ main .cheatsheets .cheatsheet img {
 }
 
 /* cheatsheetLists */
-main .cheatsheets .cheatsheetItem {
+main .cheatsheetItem {
   display: grid;
   grid-template-columns: 80% 1fr;
   /* background-color: #EEEFA8; */
@@ -114,10 +114,24 @@ main .cheatsheets .cheatsheetItem:hover {
   cursor: pointer;
 }
 
+main .cheatsheets .cheatsheetWebsite{
+  background-color: #EE4B2B;
+}
+main .cheatsheets .cheatsheetWebsite:hover{
+  background-color: #ef330d;
+}
+
+/* the pdf item */
 #adobe-dc-view {
-  height: 80em;
+  height: 50em;
   width: 80%;
   margin: 0 auto 0 auto;
   padding: 0;
   border: 0.5em solid black;
+}
+/* the website item */
+.website-item {
+  width: 100%;
+  height: 50em;
+  border: 2px solid black;
 }

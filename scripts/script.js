@@ -1,4 +1,12 @@
 "strict";
+// global variables
+const globalVariables = (() => {
+  uniqueId = 0;
+  openSheetClicked = false;
+  isItemClicked = false;
+  prevItem = null;
+})();
+
 var adobeReady = false;
 document.addEventListener("adobe_dc_view_sdk.ready", function () {
   adobeReady = true;
@@ -33,16 +41,26 @@ function callAdobeApi(PDFObject) {
   );
 }
 
-let uniqueId = 0;
-
-class PDF {
-  constructor(title, author, type, url, fileName) {
+class embedMedia {
+  constructor(title, author, type, url) {
     this.title = title;
     this.author = author;
     this.type = type;
-    this.id = uniqueId++;
     this.url = url;
+    this.id = uniqueId++;
+  }
+}
+
+class PDF extends embedMedia {
+  constructor(title, author, type, url, fileName) {
+    super(title, author, type, url);
     this.fileName = fileName;
+  }
+}
+
+class Website extends embedMedia {
+  constructor(title, author, type, url) {
+    super(title, author, type, url);
   }
 }
 
@@ -55,29 +73,56 @@ const PDFCollection = [
   new PDF("Git Cheat Sheet", "Atlassian", "git", "cheatsheets/git-cheatsheet.pdf", "git-cheatsheet.pdf"),
 ];
 
+const WebsiteCollection = [
+  new Website("Learn JavaScript", "Codecademy", "javascript", "https://www.codecademy.com/learn/introduction-to-javascript/modules/learn-javascript-introduction/cheatsheet"),
+  new Website("CSS Grid cheatsheet", "Rico's cheatsheets", "css", "https://devhints.io/css-grid"),
+];
+
 console.log(PDFCollection[0].title);
 
-let openSheetClicked = false;
-let openPdfClicked = false;
-let prevPDFId = null;
+const openWebsite = (e) => {
+  // we left off from here
+  const websiteObject = e.target.websiteObject;
+
+  if (!isItemClicked) {
+    // make the pdf element
+    createWebsiteElement();
+  } else {
+    document.querySelectorAll(".website-item").forEach((el) => {
+      el.remove();
+    });
+    if (prevItem !== websiteObject) {
+      createWebsiteElement();
+    } else {
+      isItemClicked = false;
+    }
+  }
+  function createWebsiteElement() {
+    const cheatsheetsItem = document.createElement("embed");
+    console.log(websiteObject.url);
+    cheatsheetsItem.setAttribute("src", websiteObject.url);
+    cheatsheetsItem.classList.add("website-item");
+    e.target.after(cheatsheetsItem);
+    isItemClicked = true;
+  }
+  prevItem = websiteObject;
+};
 
 const openPDF = (e) => {
   // get the pdf object selected
   const PDFObject = e.currentTarget.PDFObject;
   const cheatsheetsItem = e.currentTarget;
-  const prevPDFObjectId = e.currentTarget.prevPDFObjectId;
-  console.log(prevPDFObjectId);
-  if (!openPdfClicked) {
+  if (!isItemClicked) {
     // make the pdf element
     createPDFElements();
   } else {
     document.querySelectorAll("#adobe-dc-view").forEach((el) => {
       el.remove();
     });
-    if (prevPDFId !== PDFObject) {
+    if (prevItem !== PDFObject) {
       createPDFElements();
     } else {
-      openPdfClicked = false;
+      isItemClicked = false;
     }
   }
   function createPDFElements() {
@@ -88,17 +133,31 @@ const openPDF = (e) => {
     cheatsheetsItem.after(pdfElement);
     // pass the current PDFObject
     callAdobeApi(PDFObject);
-    openPdfClicked = true;
+    isItemClicked = true;
   }
-  prevPDFId = PDFObject;
+  prevItem = PDFObject;
 };
 
+// function called when a type of cheatsheet is picked i.e javascript
 const openSheet = (clickedId) => {
-  console.log(clickedId);
   // you can't click the button again
   if (!openSheetClicked) {
-    // retrieve selected div element (or the div of the button that was clicked)
+    // retrieve selected div element (or the type of cheatsheet that was clicked)
     const clickedElement = document.querySelector(`#${clickedId}`);
+    // retrieve the website elements
+    for (let i = 0; i < WebsiteCollection.length; i++) {
+      if (WebsiteCollection[i].type === clickedId) {
+        const cheatsheetsItem = document.createElement("div");
+        cheatsheetsItem.addEventListener("click", openWebsite);
+        cheatsheetsItem.classList.add("cheatsheetItem");
+        cheatsheetsItem.classList.add("cheatsheetWebsite");
+        cheatsheetsItem.websiteObject = WebsiteCollection[i];
+        cheatsheetsItem.innerHTML = `<h3>${WebsiteCollection[i].title}</h3>
+        <h4><i>by ${WebsiteCollection[i].author}</i></h4>`;
+        clickedElement.after(cheatsheetsItem);
+      }
+    }
+    // retrieve the pdfs elements
     for (let i = 0; i < PDFCollection.length; i++) {
       // find pdfs that matched the selected div
       if (PDFCollection[i].type === clickedId) {
@@ -110,11 +169,6 @@ const openSheet = (clickedId) => {
         cheatsheetsItem.addEventListener("click", openPDF);
         // make a parameter called PDFObject and pass the current PDFObject
         cheatsheetsItem.PDFObject = PDFCollection[i];
-        // also pass the previous object id
-        cheatsheetsItem.prevPDFObjectId = PDFCollection[i];
-
-        // give an ID to each individual PDF
-
         // make html to be appended to the div
         cheatsheetsItem.innerHTML = `<h3>${PDFCollection[i].title}</h3>
         <h4><i>by ${PDFCollection[i].author}</i></h4>
