@@ -11,6 +11,7 @@ main {
   grid-template-columns: 1fr;
   grid-template-rows: 15% 1fr;
 }
+
 main header {
   grid-row: 1 / span 1;
   grid-column: 1 / span 1;
@@ -20,7 +21,6 @@ main header {
   justify-items: center;
   align-items: center;
   height: 10em;
-  margin-bottom: 40em;
 }
 
 main header #title {
@@ -57,7 +57,7 @@ main .cheatsheets {
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(5, 1fr);
   padding: 3em 10em 0 10em;
-  height: 5em;
+  height: 40em;
 
 
   /* this prevents highlighting of text */
@@ -134,4 +134,8 @@ main .cheatsheets .cheatsheetWebsite:hover{
   width: 100%;
   height: 50em;
   border: 2px solid black;
+}
+
+#disclaimer {
+  text-align: center;
 }
