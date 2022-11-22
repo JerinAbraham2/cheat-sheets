@@ -184,7 +184,7 @@ const openSheet = (clickedId) => {
     });
     document.querySelectorAll("#adobe-dc-view").forEach((el) => {
       el.remove();
+      openSheetClicked = false;
     });
-    openSheetClicked = false;
   }
 };

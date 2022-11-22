@@ -17,7 +17,7 @@ main header {
   grid-column: 1 / span 1;
   background-color: #2d2a32;
   display: grid;
-  grid-template-columns: 80% 1fr;
+  grid-template-columns: 80% 1fr 1fr;
   justify-items: center;
   align-items: center;
   height: 10em;
@@ -30,7 +30,7 @@ main header #title {
   font-size: 3.5em;
 }
 
-main header #home-button {
+main header .header-button {
   grid-column: 2 / span 2;
   grid-row: 1 / span 1;
   padding: 1em 2em 1em 2em;
@@ -39,15 +39,20 @@ main header #home-button {
   background-size: 200% 100%;
   font-weight: bold;
   font-size: 1em;
+
 }
-main header #home-button:hover {
+main header .header-button:hover {
   transition:all 0.5s linear;
   background-position: left;
   cursor: pointer;
 }
-main header #home-button a {
+main header .header-button a {
   text-decoration: none;
   color: black;
+}
+
+main header .source-button {
+  margin-right: 20px;
 }
 
 main .cheatsheets {
